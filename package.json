@@ -1,0 +1,21 @@
+{
+  "name": "react-interview-mid",
+  "version": "1.0.0",
+  "description": "Build a contact form with real-time validation and async submission handling.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nortadzhiev-rustam/react-interview-mid.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nortadzhiev-rustam/react-interview-mid/issues"
+  },
+  "homepage": "https://github.com/nortadzhiev-rustam/react-interview-mid#readme"
+}
