@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 
 // Simulated async API call
 const submitForm = async (data) => {
@@ -83,14 +83,21 @@ export default function App() {
     }
   };
 
-  const isFormValid =
-    Object.values(errors).every((e) => !e) &&
-    Object.values(formData).every((v) => v.trim());
+  const isFormValid = useMemo(
+    () =>
+      Object.values(errors).every((e) => !e) &&
+      Object.values(formData).every((v) => v.trim()),
+    [errors, formData]
+  );
 
   return (
     <div className="container">
       <h1>React Mid Task: Contact Form</h1>
-      {submitSuccess && <div className="success">{submitSuccess}</div>}
+      {submitSuccess && (
+        <div className="success" role="status" aria-live="polite">
+          {submitSuccess}
+        </div>
+      )}
       {submitError && (
         <div
           className="error"
@@ -100,12 +107,14 @@ export default function App() {
             borderRadius: 4,
             marginBottom: 16,
           }}
+          role="alert"
+          aria-live="assertive"
         >
           {submitError}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate aria-busy={isLoading}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input
@@ -115,6 +124,7 @@ export default function App() {
             value={formData.name}
             onChange={handleChange}
             disabled={isLoading}
+            required
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
           />
@@ -134,6 +144,7 @@ export default function App() {
             value={formData.email}
             onChange={handleChange}
             disabled={isLoading}
+            required
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
           />
@@ -155,6 +166,7 @@ export default function App() {
             maxLength={2000}
             onChange={handleChange}
             disabled={isLoading}
+            required
             aria-invalid={!!errors.message}
             aria-describedby={errors.message ? "message-error" : undefined}
           />
